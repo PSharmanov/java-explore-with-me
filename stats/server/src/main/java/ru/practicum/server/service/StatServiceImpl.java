@@ -4,11 +4,13 @@ import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import ru.practicum.dto.EndpointHitDto;
 import ru.practicum.dto.ViewStatsDto;
 import ru.practicum.server.exception.RequestException;
 import ru.practicum.server.mapper.EndpointHitMapper;
 import ru.practicum.server.mapper.ViewStatsMapper;
+import ru.practicum.server.model.EndpointHit;
 import ru.practicum.server.repository.StatsRepository;
 
 import java.time.LocalDateTime;
@@ -20,6 +22,7 @@ import java.util.List;
 @AllArgsConstructor
 public class StatServiceImpl implements StatService {
     private final StatsRepository statsRepository;
+
 
     @Override
     public List<ViewStatsDto> getStats(String start, String end, List<String> uris, Boolean unique) {
@@ -50,10 +53,15 @@ public class StatServiceImpl implements StatService {
         }
     }
 
+
     @Override
+    @Transactional
     public EndpointHitDto addHit(EndpointHitDto requestDto) {
         log.info("Сохраняем в статистику обращение из {} к {} с ip {}", requestDto.getApp(), requestDto.getUri(), requestDto.getId());
-        return EndpointHitMapper.mapToDto(statsRepository.save(EndpointHitMapper.mapToEntity(requestDto)));
+
+        EndpointHit hit = statsRepository.save(EndpointHitMapper.mapToEntity(requestDto));
+
+        return EndpointHitMapper.mapToDto(hit);
     }
 }
 

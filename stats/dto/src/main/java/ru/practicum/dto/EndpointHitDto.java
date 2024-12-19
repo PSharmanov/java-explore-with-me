@@ -12,6 +12,7 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @NoArgsConstructor
 @EqualsAndHashCode(of = {"id"})
+@Builder
 public class EndpointHitDto {
     @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     private Long id;
