@@ -31,10 +31,10 @@ import static ru.practicum.ewm.requests.model.RequestStatus.*;
 @RequiredArgsConstructor
 public class RequestServiceImpl implements RequestService {
     private static final int NO_LIMIT = 0;
-    final private EventRepository eventRepository;
-    final private UserRepository userRepository;
-    final private RequestRepository requestRepository;
-    final private RequestMapper requestMapper;
+    private final  EventRepository eventRepository;
+    private final  UserRepository userRepository;
+    private final  RequestRepository requestRepository;
+    private final  RequestMapper requestMapper;
 
     @Override
     @Transactional
