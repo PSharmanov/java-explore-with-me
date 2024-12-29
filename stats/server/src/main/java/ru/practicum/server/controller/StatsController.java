@@ -26,8 +26,8 @@ public class StatsController {
 
     @GetMapping("/stats")
     @ResponseStatus(HttpStatus.OK)
-    public List<ViewStatsDto> get(@RequestParam String start,
-                                  @RequestParam String end,
+    public List<ViewStatsDto> get(@RequestParam(required = false) String start,
+                                  @RequestParam(required = false) String end,
                                   @RequestParam(required = false) List<String> uris,
                                   @RequestParam(defaultValue = "false") Boolean unique) {
         log.info("Получен запрос GET /stats");
